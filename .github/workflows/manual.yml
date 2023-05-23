@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v2 # checkout the repository content
 
       - name: execute py script # run main.py
-        run: python test.py
+        run: python genshin-os.py
