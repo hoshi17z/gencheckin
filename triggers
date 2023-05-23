@@ -1,0 +1,1 @@
+[{"type":"cron","id":"cron","command":"python genshin-os.py","test_event":"","settings":{"mode":"custom","crontab":"0 21 * * *","time_zone":"UTC"}}]
