@@ -1,0 +1,22 @@
+import genshin
+import os
+import asyncio
+from discord_webhook import DiscordWebhook, DiscordEmbed
+
+async def login():
+     client = genshin.Client(game=genshin.Game.GENSHIN)
+     client.set_cookies(ltuid=os.environ.get('ltuid'), ltoken=os.environ.get('ltoken'))
+     try:
+          reward = await client.claim_daily_reward()
+          return f"Claimed {reward.amount} x {reward.name}"
+     except genshin.AlreadyClaimed:
+          return "Reward already claimed"
+     except:
+          return "Error claiming reward"
+
+def main():
+     webhook = DiscordWebhook(url=os.environ.get('webhook'))
+     response = asyncio.run(login())
+     embed = DiscordEmbed(title="Genshin Daily Check-In",description=response)
+     webhook.add_embed(embed)
+     response = webhook.execute()
